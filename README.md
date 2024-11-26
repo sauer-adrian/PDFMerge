@@ -1,75 +1,49 @@
-# Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# PDFMerge
 
-## Setup
+**PDFMerge** is a web application built with Nuxt 3, designed to upload and seamlessly merge PDF files into a single document. Its user-friendly drag-and-drop interface ensures an efficient and hassle-free experience.
 
-Make sure to install dependencies:
+## Features
 
-```bash
-# npm
-npm install
+- **Drag-and-Drop:** Easily drag and drop your PDF files into the app.
+- **File Selection:** Alternatively, select PDF files via a file picker.
+- **Merge PDFs:** Combine multiple PDF files into one with a single click.
+- **Download Result:** Instantly download the merged PDF.
 
-# pnpm
-pnpm install
+## Installation
 
-# yarn
-yarn install
+1. Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/sauer-adrian/PDFMerge.git
+   cd PDFMerge 
+2.  Install dependencies:
+    ```bash
+    npm install
+3.  Start the development server:
+    
+    ```bash
+    npm run dev
+    ```
+    
+    The application will be available at  `http://localhost:3000`.
+    
 
-# bun
-bun install
-```
+## Usage
 
-## Development Server
+1.  Drag and drop PDF files into the designated area or select them using the file picker.
+2.  Click the "Merge PDFs" button to combine your selected files.
+3.  Download the merged PDF to your device.
 
-Start the development server on `http://localhost:3000`:
+## Technologies Used
 
-```bash
-# npm
-npm run dev
+-   **Nuxt 3**: Framework for building modern web applications.
+-   **Vue 3**: Reactive JavaScript framework.
+-   **pdf-lib**: Library for working with PDF files in JavaScript.
 
-# pnpm
-pnpm dev
+## Contributing
 
-# yarn
-yarn dev
+Contributions are welcome! Feel free to submit a pull request or open an issue to suggest improvements or report bugs.
 
-# bun
-bun run dev
-```
+## License
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+This project is licensed under the  MIT License.
