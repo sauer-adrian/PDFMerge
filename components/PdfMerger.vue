@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-full space-x-4 p-4">
+  <div class="flex w-full h-full space-x-4">
     <!-- Left Section: 2/3 width for Drop Area -->
     <div class="w-2/3 flex flex-col items-center space-y-4" @dragover.prevent @drop="handleDrop">
       <!-- Drag-and-Drop Area with fixed height and centered text -->
@@ -15,7 +15,7 @@
       <!-- Fake File List with Skeleton -->
       <div v-if="files.length === 0" class="space-y-4 w-full">
         <!-- Fake file skeleton loaders resembling file list -->
-        <div v-for="i in 3" :key="i" class="flex justify-between items-center space-x-4 p-2 border-b">
+        <div v-for="i in 3" :key="i" class="flex justify-between items-center space-x-4  px-2 pb-2 border-b">
           <div class="flex-1 space-y-2">
             <!-- Skeleton lines for file name -->
             <USkeleton class="h-4 w-full" />
