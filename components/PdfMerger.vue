@@ -11,11 +11,13 @@
     </div>
 
     <!-- Right Section: 1/3 width for File List -->
-    <div class="w-full lg:w-1/3 flex flex-col items-start space-y-4">
+    <div class="w-full lg:w-1/3 flex flex-col items-start">
+
       <!-- Fake File List with Skeleton -->
       <div v-if="files.length === 0" class="space-y-4 w-full">
         <!-- Fake file skeleton loaders resembling file list -->
-        <div v-for="i in 3" :key="i" class="flex justify-between items-center space-x-4  px-2 pb-2 border-b">
+        <div v-for="i in 3" :key="i" class="flex justify-between items-center space-x-4  px-2 pb-2">
+          
           <div class="flex-1 space-y-2">
             <!-- Skeleton lines for file name -->
             <USkeleton class="h-4 w-full" />
@@ -23,6 +25,7 @@
           <!-- Skeleton for "remove" button -->
           <USkeleton class="h-6 w-6 rounded-full" />
         </div>
+        <UDivider/>
         <USkeleton class="h-8 w-full" />
       </div>
 
@@ -32,11 +35,11 @@
           @end="onDragEnd">
           <!-- Define the slot for each draggable item -->
           <template #item="{ element, index }">
-            <li :key="element.name" class="flex justify-between items-center px-4 py-2 border-b"
+            <li :key="element.name" class="flex justify-between items-center px-4 py-2"
               @mouseover="setDragHoverCursor" @mousedown="draggingStyle" @mouseleave="resetCursor"
               :style="draggingIndex === index ? draggingStyle : {}">
               <span class="truncate">{{ index + 1 }}. {{ element.name }}</span>
-              <UButton icon="i-heroicons-trash-20-solid" size="small" variant="danger" @click="removeFile(index)">
+              <UButton icon="i-heroicons-trash" size="2xs" color="red" variant="outline" @click="removeFile(index)">
               </UButton>
             </li>
           </template>
@@ -44,7 +47,7 @@
       </client-only>
 
       <div class="w-full" v-if="files.length !== 0">
-        <UButton block class="w-full" @click="openModal">
+        <UButton block size="md" class="w-full mt-4" @click="openModal">
           Merge
         </UButton>
       </div>
