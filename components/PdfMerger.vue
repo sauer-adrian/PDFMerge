@@ -1,7 +1,7 @@
 <template>
-  <div class="flex w-full h-full space-x-4">
+  <div class="flex flex-col lg:flex-row w-full h-full space-y-4 lg:space-y-0 lg:space-x-4">
     <!-- Left Section: 2/3 width for Drop Area -->
-    <div class="w-2/3 flex flex-col items-center space-y-4" @dragover.prevent @drop="handleDrop">
+    <div class="w-full lg:w-2/3 flex flex-col items-center space-y-4">
       <!-- Drag-and-Drop Area with fixed height and centered text -->
       <div
         class="drop-area w-full p-4 text-center border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer flex items-center justify-center"
@@ -11,7 +11,7 @@
     </div>
 
     <!-- Right Section: 1/3 width for File List -->
-    <div class="w-1/3 flex flex-col items-start space-y-4">
+    <div class="w-full lg:w-1/3 flex flex-col items-start space-y-4">
       <!-- Fake File List with Skeleton -->
       <div v-if="files.length === 0" class="space-y-4 w-full">
         <!-- Fake file skeleton loaders resembling file list -->
@@ -43,16 +43,27 @@
         </draggable>
       </client-only>
 
-
-
       <div class="w-full" v-if="files.length !== 0">
-        <UButton block class="w-full" @click="mergeAndDownloadFiles">
+        <UButton block class="w-full" @click="openModal">
           Merge
         </UButton>
       </div>
 
     </div>
   </div>
+
+  <!-- Modal for renaming the file -->
+  <UModal v-model="isModalOpen">
+    <div class="p-4">
+      <h3 class="text-xl mb-4">Enter File Name</h3>
+      <UInput v-model="newFileName" :placeholder="files[0]?.name || 'Untitled.pdf'" />
+
+      <div class="flex space-x-4 mt-4">
+        <UButton label="Abort" @click="closeModal" variant="outline" />
+        <UButton label="Ok" @click="mergeAndDownloadFiles" variant="solid" color="primary" />
+      </div>
+    </div>
+  </UModal>
 </template>
 
 <script setup>
@@ -64,6 +75,9 @@ const files = ref([])
 
 const draggingIndex = ref(null) // Track the index of the item being dragged
 
+const isModalOpen = ref(false) // Control the modal visibility
+const newFileName = ref('') // Store the new file name entered by the user
+
 // Cursor styles
 const draggingStyle = (e) => {
   if (e.target.tagName === 'LI') {
@@ -72,14 +86,12 @@ const draggingStyle = (e) => {
 }
 
 const setDragHoverCursor = (e) => {
-  // Change cursor to "move" when hovering over a draggable item
   if (e.target.tagName === 'LI') {
     e.target.style.cursor = 'grab'
   }
 }
 
 const resetCursor = (e) => {
-  // Reset cursor when leaving the draggable item
   e.target.style.cursor = ''
 }
 
@@ -121,7 +133,18 @@ const removeFile = (index) => {
   files.value.splice(index, 1)
 }
 
-// Merge and download PDF files
+// Open the modal for renaming the file before merging
+const openModal = () => {
+  newFileName.value = files.value[0]?.name || 'merged.pdf' // Default to first file's name
+  isModalOpen.value = true
+}
+
+// Close the modal without doing anything
+const closeModal = () => {
+  isModalOpen.value = false
+}
+
+// Merge and download PDF files with the new name
 const mergeAndDownloadFiles = async () => {
   const mergedPdf = await PDFDocument.create()
 
@@ -137,10 +160,13 @@ const mergeAndDownloadFiles = async () => {
 
   const link = document.createElement('a')
   link.href = mergedPdfUrl
-  link.download = 'merged.pdf'
+  link.download = newFileName.value || 'merged.pdf' // Use the new name entered by the user
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
+
+  files.value = [] // Reset the file list
+  closeModal() // Close the modal
 }
 
 // Drag start and end handlers
