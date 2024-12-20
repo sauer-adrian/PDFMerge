@@ -24,7 +24,7 @@ const navLinks = [
 </script>
 
 <template>
-  <header class="flex items-center justify-between p-4 bg-white dark:bg-slate-800">
+  <header class="flex items-center justify-between p-4 bg-transparent">
     <div class="flex items-center space-x-4">
       <NuxtLink to="/" class="flex items-center space-x-2">
         <img src="/logo.png" alt="Logo" class="h-8 w-8" />

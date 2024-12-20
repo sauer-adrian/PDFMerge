@@ -35,13 +35,16 @@
           @end="onDragEnd">
           <!-- Define the slot for each draggable item -->
           <template #item="{ element, index }">
-            <li :key="element.name" class="flex justify-between items-center px-4 py-2"
+            <div>
+              <li :key="element.name" class="flex justify-between items-center px-4 py-2"
               @mouseover="setDragHoverCursor" @mousedown="draggingStyle" @mouseleave="resetCursor"
               :style="draggingIndex === index ? draggingStyle : {}">
               <span class="truncate">{{ index + 1 }}. {{ element.name }}</span>
               <UButton icon="i-heroicons-trash" size="2xs" color="red" variant="outline" @click="removeFile(index)">
               </UButton>
             </li>
+            <UDivider/>
+            </div>
           </template>
         </draggable>
       </client-only>
